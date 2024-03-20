@@ -48,7 +48,7 @@ export const LoginForm = () => {
           setError(res?.error);
         } else {
           // TODO: success message
-          // setSuccess(res.success);
+          setSuccess(res?.success);
         }
       });
     });
