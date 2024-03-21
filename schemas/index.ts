@@ -18,3 +18,9 @@ export const ResetSchema = object({
     message: "Email is required",
   }),
 });
+
+export const NewPasswordSchema = object({
+  password: string().min(6, {
+    message: "Minimum of 6 characters required",
+  }),
+});
