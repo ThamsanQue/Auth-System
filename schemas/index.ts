@@ -1,10 +1,11 @@
-import { object, string } from "zod";
+import { object, optional, string } from "zod";
 
 export const LoginSchema = object({
   email: string().email({
     message: "Email is required",
   }),
   password: string().min(1, "Password is required"),
+  code: optional(string()),
 });
 
 export const RegisterSchema = object({
