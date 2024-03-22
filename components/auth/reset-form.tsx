@@ -35,14 +35,11 @@ export const ResetForm = () => {
     setError("");
     setSuccess("");
 
-    console.log(values);
-
     startTransition(() => {
       reset(values).then((res) => {
         if (res?.error) {
           setError(res?.error);
         } else {
-          // TODO: success message
           setSuccess(res?.success);
         }
       });

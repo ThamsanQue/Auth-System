@@ -1,4 +1,4 @@
-import { object, optional, string } from "zod";
+import { boolean, object, optional, string } from "zod";
 
 export const LoginSchema = object({
   email: string().email({
@@ -25,3 +25,37 @@ export const NewPasswordSchema = object({
     message: "Minimum of 6 characters required",
   }),
 });
+
+export const SettingsSchema = object({
+  name: optional(string()),
+  isTwoFactorEnabled: optional(boolean()),
+  email: optional(string().email()),
+  password: optional(string().min(6)),
+  newPassword: optional(string().min(6)),
+})
+  .refine(
+    (data) => {
+      if (data.password && !data.newPassword) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "New password is required!",
+      path: ["newPassword"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.newPassword && !data.password) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "Password is required!",
+      path: ["password"],
+    }
+  );
